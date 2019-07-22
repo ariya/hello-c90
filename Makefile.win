@@ -1,0 +1,15 @@
+CC=cl.exe
+LINK=link.exe
+RM=del
+CFLAGS = /Wall /Za
+
+all: hello
+hello: hello.obj
+	$(LINK) $(LDFLAGS) hello.obj
+
+clean:
+	$(RM) hello.exe hello.obj
+
+.SUFFIXES: .c .obj
+.c.obj:
+	 $(CC) $(CFLAGS) /Fo$@ $<
