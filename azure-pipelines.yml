@@ -164,26 +164,6 @@ jobs:
   - script: hello.exe
     displayName: 'Run'
 
-- job: 'i686_windows_pellesc'
-  pool:
-    vmImage: 'vs2017-win2016'
-  steps:
-  - script: choco install pelles-c 7zip
-    displayName: 'Install requirements'
-  - task: BatchScript@1
-    inputs:
-      filename: "C:\\Program Files\\PellesC\\bin\\povars32.bat"
-      modifyEnvironment: true
-    displayName: Setup environment for Pelles C"
-  - script: |
-      pocc hello.c /std:C99 /W2
-      polink hello.obj
-    displayName: 'compile'
-  - script: 7z l hello.exe | findstr "CPU"
-    displayName: 'Verify executable'
-  - script: hello.exe
-    displayName: 'Run'
-
 - job: 'amd64_windows_mingw'
   pool:
     vmImage: 'vs2017-win2016'
