@@ -4,6 +4,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y make gcc
     displayName: 'Install requirements'
   - script: gcc --version
@@ -19,6 +21,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y make clang
     displayName: 'Install requirements'
   - script: clang --version
@@ -34,6 +38,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y make tcc
     displayName: 'Install requirements'
   - script: tcc -v
@@ -49,6 +55,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y qemu-user
     displayName: 'Install requirements'
   - script: |
@@ -70,6 +78,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y qemu-user
     displayName: 'Install requirements'
   - script: |
@@ -90,6 +100,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y qemu-user
     displayName: 'Install requirements'
   - script: |
@@ -249,6 +261,8 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
   - script: sudo apt install -y qemu-user
     displayName: 'Install requirements'
   - script: |
