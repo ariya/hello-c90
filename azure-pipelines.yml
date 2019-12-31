@@ -79,6 +79,75 @@ jobs:
   - script: ./hello
     displayName: 'Run'
 
+- job: 'amd64_windows_clang'
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    PACMAN_PACKAGES: C:\tools\msys64\var\cache\pacman\pkg
+    CC: clang
+  steps:
+  - script: choco install --no-progress msys2
+    displayName: 'Install MSYS2'
+  - task: Cache@2
+    inputs:
+      key: pacman
+      restoreKeys: pacman
+      path: $(PACMAN_PACKAGES)
+    displayName: Cache pacman packages
+  - script: pacman --version && pacman -Sy && pacman --noconfirm -S pacman-mirrors
+    workingDirectory:  C:\tools\msys64\usr\bin\
+    displayName: 'Check pacman'
+  - script:  pacman --noconfirm -S msys/make mingw64/mingw-w64-x86_64-clang
+    workingDirectory: C:\tools\msys64\usr\bin\
+    displayName: 'Install requirements'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
+      clang --version
+    displayName: 'Verify tools version'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
+      make
+      ren hello hello.exe
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
+- job: 'amd64_windows_gcc'
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    PACMAN_PACKAGES: C:\tools\msys64\var\cache\pacman\pkg
+    CC: gcc
+  steps:
+  - script: choco install --no-progress msys2
+    displayName: 'Install MSYS2'
+  - task: Cache@2
+    inputs:
+      key: pacman
+      restoreKeys: pacman
+      path: $(PACMAN_PACKAGES)
+    displayName: Cache pacman packages
+  - script: pacman --version && pacman -Sy && pacman --noconfirm -S pacman-mirrors
+    workingDirectory:  C:\tools\msys64\usr\bin\
+    displayName: 'Check pacman'
+  - script:  pacman --noconfirm -S msys/make mingw64/mingw-w64-x86_64-gcc
+    workingDirectory: C:\tools\msys64\usr\bin\
+    displayName: 'Install requirements'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
+      gcc --version
+    displayName: 'Verify tools version'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
+      make
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
 - job: 'amd64_windows_mingw'
   pool:
     vmImage: 'vs2017-win2016'
@@ -198,6 +267,41 @@ jobs:
   - script: docker run -v $PWD:/app tianon/wine:32 bash -c "wine wineboot >/dev/null &>/dev/null && wine /app/hello"
     displayName: 'Run'
 
+- job: 'i686_windows_clang'
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    PACMAN_PACKAGES: C:\tools\msys64\var\cache\pacman\pkg
+    CC: clang
+  steps:
+  - script: choco install --no-progress msys2
+    displayName: 'Install MSYS2'
+  - task: Cache@2
+    inputs:
+      key: pacman
+      restoreKeys: pacman
+      path: $(PACMAN_PACKAGES)
+    displayName: Cache pacman packages
+  - script: pacman --version && pacman -Sy && pacman --noconfirm -S pacman-mirrors
+    workingDirectory:  C:\tools\msys64\usr\bin\
+    displayName: 'Check pacman'
+  - script:  pacman --noconfirm -S msys/make mingw32/mingw-w64-i686-clang
+    workingDirectory: C:\tools\msys64\usr\bin\
+    displayName: 'Install requirements'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw32\bin;%PATH%
+      clang --version
+    displayName: 'Verify tools version'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw32\bin;%PATH%
+      make
+      ren hello hello.exe
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
 - job: 'i686_windows_digitalmars'
   pool:
     vmImage: 'vs2017-win2016'
@@ -210,6 +314,40 @@ jobs:
   - script: make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
     displayName: 'make'
   - script: 7z l hello.exe | findstr "CPU"
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
+- job: 'i686_windows_gcc'
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    PACMAN_PACKAGES: C:\tools\msys64\var\cache\pacman\pkg
+    CC: gcc
+  steps:
+  - script: choco install --no-progress msys2
+    displayName: 'Install MSYS2'
+  - task: Cache@2
+    inputs:
+      key: pacman
+      restoreKeys: pacman
+      path: $(PACMAN_PACKAGES)
+    displayName: Cache pacman packages
+  - script: pacman --version && pacman -Sy && pacman --noconfirm -S pacman-mirrors
+    workingDirectory:  C:\tools\msys64\usr\bin\
+    displayName: 'Check pacman'
+  - script:  pacman --noconfirm -S msys/make mingw32/mingw-w64-i686-gcc
+    workingDirectory: C:\tools\msys64\usr\bin\
+    displayName: 'Install requirements'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw32\bin;%PATH%
+      gcc --version
+    displayName: 'Verify tools version'
+  - script: |
+      set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw32\bin;%PATH%
+      make
+    displayName: 'make'
+  - script: file hello.exe
     displayName: 'Verify executable'
   - script: hello.exe
     displayName: 'Run'
