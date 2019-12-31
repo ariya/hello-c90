@@ -1,22 +1,5 @@
 jobs:
 
-- job: 'amd64_linux_gcc'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: sudo apt-get -y -qq update
-    displayName: 'apt-get update'
-  - script: sudo apt install -y make gcc
-    displayName: 'Install requirements'
-  - script: gcc --version
-    displayName: 'Verify tools version'
-  - script: CC=gcc make
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: ./hello
-    displayName: 'Run'
-
 - job: 'amd64_linux_clang'
   pool:
     vmImage: 'ubuntu-16.04'
@@ -28,6 +11,23 @@ jobs:
   - script: clang --version
     displayName: 'Verify tools version'
   - script: CC=clang make
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: ./hello
+    displayName: 'Run'
+
+- job: 'amd64_linux_gcc'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
+  - script: sudo apt install -y make gcc
+    displayName: 'Install requirements'
+  - script: gcc --version
+    displayName: 'Verify tools version'
+  - script: CC=gcc make
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
@@ -51,28 +51,68 @@ jobs:
   - script: ./hello
     displayName: 'Run'
 
-- job: 'i386_linux_gcc'
+- job: 'amd64_macos_clang'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'macOS 10.13'
   steps:
-  - script: sudo apt-get -y -qq update
-    displayName: 'apt-get update'
-  - script: sudo apt install -y qemu-user
-    displayName: 'Install requirements'
-  - script: |
-      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-      docker run --rm dockcross/linux-x86 > ./dockcross-linux-x86
-      chmod +x ./dockcross-linux-x86
-    displayName: 'Prepare Dockcross'
-  - script: ./dockcross/dockcross-linux-x86 bash -c '$CC --version'
+  - script: cc --version
     displayName: 'Verify tools version'
-  - script: ./dockcross/dockcross-linux-x86 make LDFLAGS=-static
+  - script: make
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
-  - script: qemu-i386 ./hello
+  - script: ./hello
     displayName: 'Run'
 
+- job: 'amd64_macos_gcc8'
+  pool:
+    vmImage: 'macOS 10.13'
+  steps:
+  - script: brew install gcc@8
+    displayName: 'Install requirements'
+  - script: gcc-8 --version
+    displayName: 'Verify tools version'
+  - script: CC=gcc-8 make
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: ./hello
+    displayName: 'Run'
+
+- job: 'amd64_windows_mingw'
+  pool:
+    vmImage: 'vs2017-win2016'
+  variables:
+    CC: 'gcc'
+  steps:
+  - script: choco install mingw --version 8.1.0
+    displayName: 'install MinGW-w64'
+  - script: gcc --version
+    displayName: 'Verify tools version'
+  - script: make
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
+- job: 'amd64_windows_mingw_static'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: |
+      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+      docker run --rm dockcross/windows-static-x64 > ./dockcross-windows-static-x64
+      chmod +x ./dockcross-windows-static-x64
+    displayName: 'Prepare Dockcross'
+  - script: ./dockcross/dockcross-windows-static-x64 bash -c '$CC --version'
+    displayName: 'Verify tools version'
+  - script: ./dockcross/dockcross-windows-static-x64 make
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: docker run -v $PWD:/app tianon/wine:64 bash -c "wine64 wineboot >/dev/null &>/dev/null && wine64 /app/hello"
+    displayName: 'Run'
 
 - job: 'arm64_linux_gcc'
   pool:
@@ -118,23 +158,58 @@ jobs:
   - script: qemu-arm ./hello
     displayName: 'Run'
 
-- job: 'i686_windows_vs2019'
+- job: 'i386_linux_gcc'
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'ubuntu-16.04'
   steps:
-  - script: choco install make
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
+  - script: sudo apt install -y qemu-user
     displayName: 'Install requirements'
-  - task: BatchScript@1
-    inputs:
-      filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat"
-      arguments: -no_logo
-      modifyEnvironment: true
-    displayName: Setup environment for Visual Studio"
-  - script: cl.exe
+  - script: |
+      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+      docker run --rm dockcross/linux-x86 > ./dockcross-linux-x86
+      chmod +x ./dockcross-linux-x86
+    displayName: 'Prepare Dockcross'
+  - script: ./dockcross/dockcross-linux-x86 bash -c '$CC --version'
     displayName: 'Verify tools version'
-  - script: make -f Makefile.win
+  - script: ./dockcross/dockcross-linux-x86 make LDFLAGS=-static
     displayName: 'make'
-  - script: dumpbin /headers hello.exe | findstr "machine"
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: qemu-i386 ./hello
+    displayName: 'Run'
+
+- job: 'i386_windows_mingw_static'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: |
+      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+      docker run --rm dockcross/windows-static-x86 > ./dockcross-windows-static-x86
+      chmod +x ./dockcross-windows-static-x86
+    displayName: 'Prepare Dockcross'
+  - script: ./dockcross/dockcross-windows-static-x86 bash -c '$CC --version'
+    displayName: 'Verify tools version'
+  - script: ./dockcross/dockcross-windows-static-x86 make
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: docker run -v $PWD:/app tianon/wine:32 bash -c "wine wineboot >/dev/null &>/dev/null && wine /app/hello"
+    displayName: 'Run'
+
+- job: 'i686_windows_digitalmars'
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: |
+      choco install checksum unzip make 7zip
+      curl -o dm857c.zip http://ftp.digitalmars.com/Digital_Mars_C++/Patch/dm857c.zip
+      checksum -c=C55373A029F878663FA80D0C3CAB7D15 dm857c.zip && unzip dm857c.zip
+    displayName: 'Install requirements'
+  - script: make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
+    displayName: 'make'
+  - script: 7z l hello.exe | findstr "CPU"
     displayName: 'Verify executable'
   - script: hello.exe
     displayName: 'Run'
@@ -160,101 +235,25 @@ jobs:
   - script: hello.exe
     displayName: 'Run'
 
-- job: 'i686_windows_digitalmars'
+- job: 'i686_windows_vs2019'
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-2019'
   steps:
-  - script: |
-      choco install checksum unzip make 7zip
-      curl -o dm857c.zip http://ftp.digitalmars.com/Digital_Mars_C++/Patch/dm857c.zip
-      checksum -c=C55373A029F878663FA80D0C3CAB7D15 dm857c.zip && unzip dm857c.zip
+  - script: choco install make
     displayName: 'Install requirements'
-  - script: make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
+  - task: BatchScript@1
+    inputs:
+      filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat"
+      arguments: -no_logo
+      modifyEnvironment: true
+    displayName: Setup environment for Visual Studio"
+  - script: cl.exe
+    displayName: 'Verify tools version'
+  - script: make -f Makefile.win
     displayName: 'make'
-  - script: 7z l hello.exe | findstr "CPU"
+  - script: dumpbin /headers hello.exe | findstr "machine"
     displayName: 'Verify executable'
   - script: hello.exe
-    displayName: 'Run'
-
-- job: 'amd64_windows_mingw'
-  pool:
-    vmImage: 'vs2017-win2016'
-  variables:
-    CC: 'gcc'
-  steps:
-  - script: choco install mingw --version 8.1.0
-    displayName: 'install MinGW-w64'
-  - script: gcc --version
-    displayName: 'Verify tools version'
-  - script: make
-    displayName: 'make'
-  - script: file hello.exe
-    displayName: 'Verify executable'
-  - script: hello.exe
-    displayName: 'Run'
-
-- job: 'i386_windows_mingw_static'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: |
-      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-      docker run --rm dockcross/windows-static-x86 > ./dockcross-windows-static-x86
-      chmod +x ./dockcross-windows-static-x86
-    displayName: 'Prepare Dockcross'
-  - script: ./dockcross/dockcross-windows-static-x86 bash -c '$CC --version'
-    displayName: 'Verify tools version'
-  - script: ./dockcross/dockcross-windows-static-x86 make
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: docker run -v $PWD:/app tianon/wine:32 bash -c "wine wineboot >/dev/null &>/dev/null && wine /app/hello"
-    displayName: 'Run'
-
-- job: 'amd64_windows_mingw_static'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: |
-      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-      docker run --rm dockcross/windows-static-x64 > ./dockcross-windows-static-x64
-      chmod +x ./dockcross-windows-static-x64
-    displayName: 'Prepare Dockcross'
-  - script: ./dockcross/dockcross-windows-static-x64 bash -c '$CC --version'
-    displayName: 'Verify tools version'
-  - script: ./dockcross/dockcross-windows-static-x64 make
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: docker run -v $PWD:/app tianon/wine:64 bash -c "wine64 wineboot >/dev/null &>/dev/null && wine64 /app/hello"
-    displayName: 'Run'
-
-- job: 'amd64_macos_clang'
-  pool:
-    vmImage: 'macOS 10.13'
-  steps:
-  - script: cc --version
-    displayName: 'Verify tools version'
-  - script: make
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: ./hello
-    displayName: 'Run'
-
-- job: 'amd64_macos_gcc8'
-  pool:
-    vmImage: 'macOS 10.13'
-  steps:
-  - script: brew install gcc@8
-    displayName: 'Install requirements'
-  - script: gcc-8 --version
-    displayName: 'Verify tools version'
-  - script: CC=gcc-8 make
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: ./hello
     displayName: 'Run'
 
 - job: 'mips_linux_gcc'
@@ -278,4 +277,3 @@ jobs:
     displayName: 'Verify executable'
   - script: qemu-mips ./hello
     displayName: 'Run'
-
