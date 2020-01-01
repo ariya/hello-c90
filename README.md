@@ -65,7 +65,7 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
 </tr>
 <tr>
   <td>tcc</td>
-  <td></td>
+  <td>&#x2714;</td>
   <td></td>
   <td>&#x2714;</td>
 </tr>

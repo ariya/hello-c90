@@ -303,6 +303,33 @@ jobs:
   - script: qemu-i386 ./hello
     displayName: 'Run'
 
+- job: 'i686_linux_tcc'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
+  - script: sudo apt install -y qemu-user
+    displayName: 'Install requirements'
+  - script: |
+      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+      docker run --rm dockcross/linux-x86 > ./dockcross-linux-x86
+      chmod +x ./dockcross-linux-x86
+    displayName: 'Prepare Dockcross'
+  - script: |
+      git clone https://github.com/TinyCC/tinycc.git
+      pushd tinycc && git checkout release_0_9_27 && popd
+      ./dockcross/dockcross-linux-x86 bash -c "cd tinycc && ./configure --prefix=/usr --cpu=i386 --triplet=i386-linux-gnu && make"
+    displayName: 'Prepare tcc'
+  - script: ./dockcross/dockcross-linux-x86 bash -c "./tinycc/tcc -v"
+    displayName: 'Check tools versions'
+  - script: ./dockcross/dockcross-linux-x86 bash -c "cd tinycc && sudo make install && cd .. && make CC=tcc"
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: ./dockcross/dockcross-linux-x86 ./hello
+    displayName: 'Run'
+
 - job: 'i686_macos_clang'
   pool:
     vmImage: 'macOS 10.13'
