@@ -307,6 +307,34 @@ jobs:
   - script: qemu-i386 ./hello
     displayName: 'Run'
 
+- job: 'i686_macos_clang'
+  pool:
+    vmImage: 'macOS 10.13'
+  steps:
+  - script: cc --version
+    displayName: 'Verify tools version'
+  - script: make CFLAGS='-m32' LDFLAGS='-m32'
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: ./hello
+    displayName: 'Run'
+
+- job: 'i686_macos_gcc'
+  pool:
+    vmImage: 'macOS 10.13'
+  steps:
+  - script: brew install gcc
+    displayName: 'Install requirements'
+  - script: gcc --version
+    displayName: 'Verify tools version'
+  - script: make CC=gcc CFLAGS='-m32' LDFLAGS='-m32'
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: ./hello
+    displayName: 'Run'
+
 - job: 'i686_windows_clang'
   pool:
     vmImage: 'vs2017-win2016'

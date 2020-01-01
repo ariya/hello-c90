@@ -54,13 +54,13 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
   <td rowspan=6>i686</td>
   <td>clang</td>
   <td></td>
-  <td></td>
+  <td>&#x2714;</td>
   <td>&#x2714;</td>
 </tr>
 <tr>
   <td>gcc</td>
   <td>&#x2714;</td>
-  <td></td>
+  <td>&#x2714;</td>
   <td>&#x2714;</td>
 </tr>
 <tr>
