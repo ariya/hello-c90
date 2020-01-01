@@ -205,8 +205,6 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - script: choco install make
-    displayName: 'Install requirements'
   - task: BatchScript@1
     inputs:
       filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
@@ -214,7 +212,7 @@ jobs:
     displayName: Setup environment for Visual Studio
   - script: cl.exe
     displayName: 'Verify tools version'
-  - script: make -f Makefile.win
+  - script: mingw32-make -f Makefile.win
     displayName: 'make'
   - script: file hello.exe
     displayName: 'Verify executable'
@@ -225,8 +223,6 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - script: choco install make
-    displayName: 'Install requirements'
   - task: BatchScript@1
     inputs:
       filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
@@ -234,7 +230,7 @@ jobs:
     displayName: Setup environment for Visual Studio
   - script: cl.exe
     displayName: 'Verify tools version'
-  - script: make -f Makefile.win
+  - script: mingw32-make -f Makefile.win
     displayName: 'make'
   - script: file hello.exe
     displayName: 'Verify executable'
@@ -375,11 +371,11 @@ jobs:
     vmImage: 'vs2017-win2016'
   steps:
   - script: |
-      choco install checksum unzip make 7zip
+      choco install checksum unzip 7zip
       curl -o dm857c.zip http://ftp.digitalmars.com/Digital_Mars_C++/Patch/dm857c.zip
       checksum -c=C55373A029F878663FA80D0C3CAB7D15 dm857c.zip && unzip dm857c.zip
     displayName: 'Install requirements'
-  - script: make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
+  - script: mingw32-make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
     displayName: 'make'
   - script: 7z l hello.exe | findstr "CPU"
     displayName: 'Verify executable'
@@ -460,8 +456,6 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
   steps:
-  - script: choco install make
-    displayName: 'Install requirements'
   - task: BatchScript@1
     inputs:
       filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsDevCmd.bat"
@@ -470,7 +464,7 @@ jobs:
     displayName: Setup environment for Visual Studio
   - script: cl.exe
     displayName: 'Verify tools version'
-  - script: make -f Makefile.win
+  - script: mingw32-make -f Makefile.win
     displayName: 'make'
   - script: dumpbin /headers hello.exe | findstr "machine"
     displayName: 'Verify executable'
@@ -481,8 +475,6 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - script: choco install make
-    displayName: 'Install requirements'
   - task: BatchScript@1
     inputs:
       filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat"
@@ -491,7 +483,7 @@ jobs:
     displayName: Setup environment for Visual Studio
   - script: cl.exe
     displayName: 'Verify tools version'
-  - script: make -f Makefile.win
+  - script: mingw32-make -f Makefile.win
     displayName: 'make'
   - script: dumpbin /headers hello.exe | findstr "machine"
     displayName: 'Verify executable'
