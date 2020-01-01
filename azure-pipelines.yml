@@ -64,15 +64,15 @@ jobs:
   - script: ./hello
     displayName: 'Run'
 
-- job: 'amd64_macos_gcc8'
+- job: 'amd64_macos_gcc'
   pool:
     vmImage: 'macOS 10.13'
   steps:
-  - script: brew install gcc@8
+  - script: brew install gcc
     displayName: 'Install requirements'
-  - script: gcc-8 --version
+  - script: gcc --version
     displayName: 'Verify tools version'
-  - script: CC=gcc-8 make
+  - script: CC=gcc make
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
