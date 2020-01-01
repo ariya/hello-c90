@@ -183,6 +183,24 @@ jobs:
   - script: docker run -v $PWD:/app tianon/wine:64 bash -c "wine64 wineboot >/dev/null &>/dev/null && wine64 /app/hello"
     displayName: 'Run'
 
+- job: 'amd64_windows_tcc'
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: |
+      choco install checksum unzip
+      curl -o tcc.zip http://gnu.mirrors.pair.com/savannah/savannah/tinycc/tcc-0.9.27-win32-bin.zip
+      checksum -c=5A3979BD5044B795547A4948A5625A12 tcc.zip && unzip tcc.zip
+    displayName: 'Install requirements'
+  - script: tcc\x86_64-win32-tcc.exe -v
+    displayName: 'Verify tools version'
+  - script: mingw32-make CC="tcc\x86_64-win32-tcc.exe" && ren hello hello.exe
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
 - job: 'amd64_windows_vs2017'
   pool:
     vmImage: 'vs2017-win2016'
@@ -386,6 +404,24 @@ jobs:
   - script: |
       set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw32\bin;%PATH%
       make
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
+- job: 'i686_windows_tcc'
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: |
+      choco install checksum unzip
+      curl -o tcc.zip http://www.namesdir.com/mirrors/nongnu/tinycc/tcc-0.9.27-win64-bin.zip
+      checksum -c=D73CF66CEC8C761DE38C7A3D16C9EB0D tcc.zip && unzip tcc.zip
+    displayName: 'Install requirements'
+  - script: tcc\i386-win32-tcc.exe -v
+    displayName: 'Verify tools version'
+  - script: mingw32-make CC="tcc\i386-win32-tcc.exe" && ren hello hello.exe
     displayName: 'make'
   - script: file hello.exe
     displayName: 'Verify executable'

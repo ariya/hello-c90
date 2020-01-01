@@ -35,7 +35,7 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
   <td>tcc</td>
   <td>&#x2714;</td>
   <td></td>
-  <td></td>
+  <td>&#x2714;</td>
 </tr>
 <tr>
   <td>vs2017</td>
@@ -51,7 +51,7 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
 </tr>
 
 <tr>
-  <td rowspan=5>i686</td>
+  <td rowspan=6>i686</td>
   <td>clang</td>
   <td></td>
   <td></td>
@@ -60,6 +60,12 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
 <tr>
   <td>gcc</td>
   <td>&#x2714;</td>
+  <td></td>
+  <td>&#x2714;</td>
+</tr>
+<tr>
+  <td>tcc</td>
+  <td></td>
   <td></td>
   <td>&#x2714;</td>
 </tr>
