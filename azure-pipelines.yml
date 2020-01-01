@@ -285,7 +285,7 @@ jobs:
   - script: qemu-arm ./hello
     displayName: 'Run'
 
-- job: 'i386_linux_gcc'
+- job: 'i686_linux_gcc'
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
@@ -305,24 +305,6 @@ jobs:
   - script: file ./hello
     displayName: 'Verify executable'
   - script: qemu-i386 ./hello
-    displayName: 'Run'
-
-- job: 'i386_windows_mingw_static'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: |
-      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-      docker run --rm dockcross/windows-static-x86 > ./dockcross-windows-static-x86
-      chmod +x ./dockcross-windows-static-x86
-    displayName: 'Prepare Dockcross'
-  - script: ./dockcross/dockcross-windows-static-x86 bash -c '$CC --version'
-    displayName: 'Verify tools version'
-  - script: ./dockcross/dockcross-windows-static-x86 make
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: docker run -v $PWD:/app tianon/wine:32 bash -c "wine wineboot >/dev/null &>/dev/null && wine /app/hello"
     displayName: 'Run'
 
 - job: 'i686_windows_clang'
@@ -408,6 +390,24 @@ jobs:
   - script: file hello.exe
     displayName: 'Verify executable'
   - script: hello.exe
+    displayName: 'Run'
+
+- job: 'i686_windows_mingw_static'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: |
+      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+      docker run --rm dockcross/windows-static-x86 > ./dockcross-windows-static-x86
+      chmod +x ./dockcross-windows-static-x86
+    displayName: 'Prepare Dockcross'
+  - script: ./dockcross/dockcross-windows-static-x86 bash -c '$CC --version'
+    displayName: 'Verify tools version'
+  - script: ./dockcross/dockcross-windows-static-x86 make
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: docker run -v $PWD:/app tianon/wine:32 bash -c "wine wineboot >/dev/null &>/dev/null && wine /app/hello"
     displayName: 'Run'
 
 - job: 'i686_windows_tcc'
