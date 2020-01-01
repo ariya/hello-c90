@@ -19,7 +19,7 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
   <td>Windows</td>
 </tr>
 <tr>
-  <td rowspan=3>amd64</td>
+  <td rowspan=5>amd64</td>
   <td>clang</td>
   <td>&#x2714;</td>
   <td>&#x2714;</td>
@@ -36,6 +36,18 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
   <td>&#x2714;</td>
   <td></td>
   <td></td>
+</tr>
+<tr>
+  <td>vs2017</td>
+  <td></td>
+  <td></td>
+  <td>&#x2714;</td>
+</tr>
+<tr>
+  <td>vs2019</td>
+  <td></td>
+  <td></td>
+  <td>&#x2714;</td>
 </tr>
 
 <tr>

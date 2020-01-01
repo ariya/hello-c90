@@ -183,6 +183,46 @@ jobs:
   - script: docker run -v $PWD:/app tianon/wine:64 bash -c "wine64 wineboot >/dev/null &>/dev/null && wine64 /app/hello"
     displayName: 'Run'
 
+- job: 'amd64_windows_vs2017'
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: choco install make
+    displayName: 'Install requirements'
+  - task: BatchScript@1
+    inputs:
+      filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
+      modifyEnvironment: true
+    displayName: Setup environment for Visual Studio
+  - script: cl.exe
+    displayName: 'Verify tools version'
+  - script: make -f Makefile.win
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
+- job: 'amd64_windows_vs2019'
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - script: choco install make
+    displayName: 'Install requirements'
+  - task: BatchScript@1
+    inputs:
+      filename: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\VC\\Auxiliary\\Build\\vcvars64.bat"
+      modifyEnvironment: true
+    displayName: Setup environment for Visual Studio
+  - script: cl.exe
+    displayName: 'Verify tools version'
+  - script: make -f Makefile.win
+    displayName: 'make'
+  - script: file hello.exe
+    displayName: 'Verify executable'
+  - script: hello.exe
+    displayName: 'Run'
+
 - job: 'arm64_linux_gcc'
   pool:
     vmImage: 'ubuntu-16.04'
