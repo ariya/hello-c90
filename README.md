@@ -10,108 +10,101 @@ Check also the [detailed individual build log](https://dev.azure.com/ariyahidaya
 
 <table>
 <tbody>
-
-<tr>
+<tr align=center>
   <td></td>
   <td></td>
+  <td>Clang</td>
+  <td>GCC</td>
+  <td>TinyCC</td>
+  <td>VS 2017</td>
+  <td>VS 2019</td>
+  <td>Digital Mars</td>
+</tr>
+<tr align=center>
+  <td rowspan=3>amd64</td>
   <td>Linux</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr align=center>
   <td>macOS</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
+</tr>
+<tr align=center>
   <td>Windows</td>
-</tr>
-<tr>
-  <td rowspan=5>amd64</td>
-  <td>clang</td>
   <td>&#x2714;</td>
   <td>&#x2714;</td>
   <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>gcc</td>
   <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>tcc</td>
   <td>&#x2714;</td>
   <td></td>
-  <td>&#x2714;</td>
 </tr>
-<tr>
-  <td>vs2017</td>
-  <td></td>
-  <td></td>
+<tr align=center>
+  <td rowspan=3>i686</td>
+  <td>Linux</td>
   <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td></td>
+  <td></td>
+  <td></td>
 </tr>
-<tr>
-  <td>vs2019</td>
-  <td></td>
-  <td></td>
+<tr align=center>
+  <td>macOS</td>
   <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td></td>
+  <td></td>
+  <td></td>
+  <td></td>
 </tr>
-
+<tr align=center>
+  <td>Windows</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
+  <td>&#x2714;</td>
 <tr>
-  <td rowspan=6>i686</td>
-  <td>clang</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>gcc</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>tcc</td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>vs2017</td>
-  <td></td>
-  <td></td>
-  <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>vs2019</td>
-  <td></td>
-  <td></td>
-  <td>&#x2714;</td>
-</tr>
-<tr>
-  <td>digitalmars</td>
-  <td></td>
-  <td></td>
-  <td>&#x2714;</td>
-</tr>
-
-<tr>
+<tr align=center>
   <td>arm64</td>
-  <td>gcc</td>
+  <td>Linux</td>
+  <td></td>
   <td>&#x2714;</td>
   <td></td>
   <td></td>
+  <td></td>
+  <td></td>
 </tr>
-
-<tr>
+<tr align=center>
   <td>armhf</td>
-  <td>gcc</td>
+  <td>Linux</td>
+  <td></td>
   <td>&#x2714;</td>
   <td></td>
   <td></td>
+  <td></td>
+  <td></td>
 </tr>
-
-<tr>
+<tr align=center>
   <td>mips</td>
-  <td>gcc</td>
+  <td>Linux</td>
+  <td></td>
   <td>&#x2714;</td>
   <td></td>
   <td></td>
+  <td></td>
+  <td></td>
 </tr>
-
-
 </tbody>
 </table>
