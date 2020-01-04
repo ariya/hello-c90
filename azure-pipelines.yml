@@ -2,7 +2,7 @@ jobs:
 
 - job: 'amd64_linux_clang'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -19,7 +19,7 @@ jobs:
 
 - job: 'amd64_linux_gcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -36,7 +36,7 @@ jobs:
 
 - job: 'amd64_linux_tcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -167,7 +167,7 @@ jobs:
 
 - job: 'amd64_windows_mingw_static'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: |
       git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
@@ -239,7 +239,7 @@ jobs:
 
 - job: 'arm64_linux_gcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -261,7 +261,7 @@ jobs:
 
 - job: 'armhf_linux_gcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -283,7 +283,7 @@ jobs:
 
 - job: 'i686_linux_clang'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -305,7 +305,7 @@ jobs:
 
 - job: 'i686_linux_gcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -327,7 +327,7 @@ jobs:
 
 - job: 'i686_linux_tcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
@@ -467,7 +467,7 @@ jobs:
 
 - job: 'i686_windows_mingw_static'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: |
       git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
@@ -541,7 +541,7 @@ jobs:
 
 - job: 'mips_linux_gcc'
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-18.04'
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
