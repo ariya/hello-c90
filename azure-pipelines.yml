@@ -68,11 +68,11 @@ jobs:
   pool:
     vmImage: 'macOS 10.13'
   steps:
-  - script: brew install gcc
+  - script: brew install gcc@9
     displayName: 'Install requirements'
-  - script: gcc --version
+  - script: gcc-9 --version
     displayName: 'Verify tools version'
-  - script: CC=gcc make
+  - script: CC=gcc-9 make
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
@@ -369,11 +369,11 @@ jobs:
   pool:
     vmImage: 'macOS 10.13'
   steps:
-  - script: brew install gcc
+  - script: brew install gcc@9
     displayName: 'Install requirements'
-  - script: gcc --version
+  - script: gcc-9 --version
     displayName: 'Verify tools version'
-  - script: make CC=gcc CFLAGS='-m32' LDFLAGS='-m32'
+  - script: CC=gcc-9 make CFLAGS='-m32' LDFLAGS='-m32'
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
