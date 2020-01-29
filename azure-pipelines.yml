@@ -352,34 +352,6 @@ jobs:
   - script: ./dockcross/dockcross-linux-x86 ./hello
     displayName: 'Run'
 
-- job: 'i686_macos_clang'
-  pool:
-    vmImage: 'macos-latest'
-  steps:
-  - script: cc --version
-    displayName: 'Verify tools version'
-  - script: make CFLAGS='-m32' LDFLAGS='-m32'
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: ./hello
-    displayName: 'Run'
-
-- job: 'i686_macos_gcc'
-  pool:
-    vmImage: 'macos-latest'
-  steps:
-  - script: brew install gcc@9
-    displayName: 'Install requirements'
-  - script: gcc-9 --version
-    displayName: 'Verify tools version'
-  - script: CC=gcc-9 make CFLAGS='-m32' LDFLAGS='-m32'
-    displayName: 'make'
-  - script: file ./hello
-    displayName: 'Verify executable'
-  - script: ./hello
-    displayName: 'Run'
-
 - job: 'i686_windows_clang'
   pool:
     vmImage: 'vs2017-win2016'
