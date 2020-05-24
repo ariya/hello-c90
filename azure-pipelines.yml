@@ -80,6 +80,7 @@ jobs:
     displayName: 'Run'
 
 - job: 'amd64_windows_clang'
+  continueOnError: true
   pool:
     vmImage: 'vs2017-win2016'
   variables:
@@ -353,6 +354,7 @@ jobs:
     displayName: 'Run'
 
 - job: 'i686_windows_clang'
+  continueOnError: true
   pool:
     vmImage: 'vs2017-win2016'
   variables:
