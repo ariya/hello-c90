@@ -1,5 +1,6 @@
 # Continuous Integration for C90 (ANSI C)
 
+[![GitHub license](https://img.shields.io/github/license/ariya/hello-c90)](https://github.com/ariya/hello-c90/blob/master/LICENSE)
 [![Build Status](https://dev.azure.com/ariyahidayat/OpenSource/_apis/build/status/ariya.hello-c90?branchName=master)](https://dev.azure.com/ariyahidayat/OpenSource/_build/latest?definitionId=14&branchName=master)
 
 This demonstrates the use of [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) to run CI for a different number of combinations of system architectures, operating systems, and C compilers.
