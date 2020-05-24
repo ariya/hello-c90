@@ -461,7 +461,7 @@ jobs:
   steps:
   - script: |
       choco install checksum unzip
-      curl -o tcc.zip http://www.namesdir.com/mirrors/nongnu/tinycc/tcc-0.9.27-win64-bin.zip
+      curl -L -o tcc.zip https://archive.org/download/tinyccompiler/tcc-0.9.27-win64-bin.zip
       checksum -c=D73CF66CEC8C761DE38C7A3D16C9EB0D tcc.zip && unzip tcc.zip
     displayName: 'Install requirements'
   - script: tcc\i386-win32-tcc.exe -v
