@@ -1,0 +1,16 @@
+name: amd64_windows_vs2019
+
+on: [push, pull_request]
+
+jobs:
+
+  amd64_windows_vs2019:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ilammy/msvc-dev-cmd@v1
+    - run: msbuild -version
+    - run: cl
+    - run: mingw32-make -f Makefile.win
+    - run: file hello.exe
+    - run: ./hello.exe

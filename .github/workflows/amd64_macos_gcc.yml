@@ -1,0 +1,15 @@
+name: amd64_macos_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  amd64_macos_gcc:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: brew install gcc@9
+    - run: gcc-9 --version
+    - run: CC=gcc-9 make
+    - run: file ./hello
+    - run: ./hello

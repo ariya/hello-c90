@@ -1,0 +1,15 @@
+name: amd64_linux_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  amd64_linux_gcc:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt install -y make gcc
+    - run: gcc --version
+    - run: CC=gcc make
+    - run: file ./hello
+    - run: ./hello

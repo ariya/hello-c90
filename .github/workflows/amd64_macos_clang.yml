@@ -1,0 +1,14 @@
+name: amd64_macos_clang
+
+on: [push, pull_request]
+
+jobs:
+
+  amd64_macos_clang:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: cc --version
+    - run: make
+    - run: file ./hello
+    - run: ./hello

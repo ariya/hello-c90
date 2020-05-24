@@ -1,0 +1,15 @@
+name: amd64_linux_tcc
+
+on: [push, pull_request]
+
+jobs:
+
+  amd64_linux_tcc:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt install -y make tcc
+    - run: tcc -v
+    - run: CC=tcc make
+    - run: file ./hello
+    - run: ./hello

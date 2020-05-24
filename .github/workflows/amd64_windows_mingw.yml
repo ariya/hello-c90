@@ -1,0 +1,17 @@
+name: amd64_windows_mingw
+
+on: [push, pull_request]
+
+jobs:
+
+  amd64_windows_mingw:
+    runs-on: windows-latest
+    env:
+      CC: gcc
+    steps:
+    - uses: actions/checkout@v2
+    - run: choco install mingw --version 8.1.0
+    - run: gcc --version
+    - run: make
+    - run: file hello.exe
+    - run: ./hello.exe
