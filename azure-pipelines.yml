@@ -80,7 +80,6 @@ jobs:
     displayName: 'Run'
 
 - job: 'amd64_windows_clang'
-  continueOnError: true
   pool:
     vmImage: 'vs2017-win2016'
   variables:
@@ -108,7 +107,6 @@ jobs:
   - script: |
       set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw64\bin;%PATH%
       make
-      ren hello hello.exe
     displayName: 'make'
   - script: file hello.exe
     displayName: 'Verify executable'
@@ -354,7 +352,6 @@ jobs:
     displayName: 'Run'
 
 - job: 'i686_windows_clang'
-  continueOnError: true
   pool:
     vmImage: 'vs2017-win2016'
   variables:
@@ -382,7 +379,6 @@ jobs:
   - script: |
       set PATH=C:\tools\msys64\usr\bin;C:\tools\msys64\mingw32\bin;%PATH%
       make
-      ren hello hello.exe
     displayName: 'make'
   - script: file hello.exe
     displayName: 'Verify executable'
