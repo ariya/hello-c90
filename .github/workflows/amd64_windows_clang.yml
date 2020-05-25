@@ -10,18 +10,13 @@ jobs:
       CC: clang
     steps:
     - uses: actions/checkout@v2
-    - run: choco install --no-progress msys2
-    - name: Add MSYS2 paths
-      run: |
-        echo "::add-path:: C:\tools\msys64\usr\bin"
-        echo "::add-path:: C:\tools\msys64\mingw64\bin"
+    - run: echo "::add-path::C:\\msys64\\usr\\bin"
     - run: pacman --version
     - run: pacman -Sy
     - run: pacman --noconfirm -S pacman-mirrors
-    - run: pacman --noconfirm -S msys/make mingw64/mingw-w64-x86_64-clang
+    - run: pacman --noconfirm -S mingw64/mingw-w64-x86_64-clang
+    - run: echo "::add-path::C:\\msys64\\mingw64\\bin"
     - run: clang --version
-    - run: where clang
-    - run: clang -O -Wall -std=c90 -c hello.c
-    - run: clang -o hello hello.o
-    - run: file hello.exe
-    - run: ./hello.exe
+    - run: make
+    - run: file ./hello.exe
+    - run: ./hello
