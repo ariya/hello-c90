@@ -1,0 +1,23 @@
+name: arm64_linux_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  arm64_linux_gcc:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt-get -y -qq update
+    - run: sudo apt install -y qemu-user
+    - name: Prepare Dockcross
+      run: |
+        git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+        docker run --rm dockcross/linux-arm64 > ./dockcross-linux-arm64
+        chmod +x ./dockcross-linux-arm64
+    - name: Verify tools version
+      run: ./dockcross/dockcross-linux-arm64 bash -c '$CC --version'
+    - name: make
+      run: ./dockcross/dockcross-linux-arm64 make LDFLAGS=-static
+    - run: file ./hello
+    - run: qemu-aarch64 ./hello
