@@ -1,0 +1,27 @@
+name: i686_windows_clang
+
+on: [push, pull_request]
+
+jobs:
+
+  i686_windows_clang:
+    runs-on: windows-latest
+    env:
+      CC: clang
+    steps:
+    - uses: actions/checkout@v2
+    - run: choco install --no-progress msys2
+    - name: Add MSYS2 paths
+      run: |
+        echo "::add-path:: C:\tools\msys64\usr\bin"
+        echo "::add-path:: C:\tools\msys64\mingw32\bin"
+    - run: pacman --version
+    - run: pacman -Sy
+    - run: pacman --noconfirm -S pacman-mirrors
+    - run: pacman --noconfirm -S msys/make mingw32/mingw-w64-i686-clang
+    - run: clang --version
+    - run: where clang
+    - run: clang -O -Wall -std=c90 -c hello.c
+    - run: clang -o hello hello.o
+    - run: file hello.exe
+    - run: ./hello.exe
