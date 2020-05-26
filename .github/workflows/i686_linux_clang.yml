@@ -1,10 +1,10 @@
-name: i686_linux_gcc
+name: i686_linux_clang
 
 on: [push, pull_request]
 
 jobs:
 
-  i686_linux_gcc:
+  i686_linux_clang:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
