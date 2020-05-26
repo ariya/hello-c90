@@ -1,0 +1,23 @@
+name: i686_linux_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  i686_linux_gcc:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt-get -y -qq update
+    - run: sudo apt install -y qemu-user
+    - name: Prepare Dockcross
+      run: |
+        git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+        docker run --rm dockcross/linux-x86 > ./dockcross-linux-x86
+        chmod +x ./dockcross-linux-x86
+    - name: Verify tools version
+      run: ./dockcross/dockcross-linux-x86 bash -c "sudo apt install -y clang && clang -v"
+    - name: make
+      run: ./dockcross/dockcross-linux-x86 bash -c "sudo apt install -y clang && make CC=clang CFLAGS='-m32' LDFLAGS='-m32 -static'"
+    - run: file ./hello
+    - run: qemu-i386 ./hello
