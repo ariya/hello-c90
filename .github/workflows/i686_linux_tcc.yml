@@ -1,0 +1,27 @@
+name: i686_linux_tcc
+
+on: [push, pull_request]
+
+jobs:
+
+  i686_linux_tcc:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt-get -y -qq update
+    - name: Prepare Dockcross
+      run: |
+        git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
+        docker run --rm dockcross/linux-x86 > ./dockcross-linux-x86
+        chmod +x ./dockcross-linux-x86
+    - name: 'Prepare tcc'
+      run: |
+        git clone https://github.com/TinyCC/tinycc.git
+        pushd tinycc && git checkout release_0_9_27 && popd
+        ./dockcross/dockcross-linux-x86 bash -c "cd tinycc && ./configure --prefix=/usr --cpu=i386 --triplet=i386-linux-gnu && make"
+    - name: Verify tools version
+      run: ./dockcross/dockcross-linux-x86 bash -c "./tinycc/tcc -v"
+    - name: make
+      run: ./dockcross/dockcross-linux-x86 bash -c "cd tinycc && sudo make install && cd .. && make CC=tcc"
+    - run: file ./hello
+    - run: ./dockcross/dockcross-linux-x86 ./hello
