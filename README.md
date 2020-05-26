@@ -1,111 +1,34 @@
 # Continuous Integration for C90 (ANSI C)
 
 [![GitHub license](https://img.shields.io/github/license/ariya/hello-c90)](https://github.com/ariya/hello-c90/blob/master/LICENSE)
-[![Build Status](https://dev.azure.com/ariyahidayat/OpenSource/_apis/build/status/ariya.hello-c90?branchName=master)](https://dev.azure.com/ariyahidayat/OpenSource/_build/latest?definitionId=14&branchName=master)
 
-This demonstrates the use of [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) to run CI for a different number of combinations of system architectures, operating systems, and C compilers.
-
-Check also the [detailed individual build log](https://dev.azure.com/ariyahidayat/OpenSource/_build/latest?definitionId=14&branchName=master).
+This demonstrates the use of [Github Actions](https://help.github.com/en/actions) to run CI for a different number of combinations of system architectures, operating systems, and C compilers.
 
 ### Supported Systems
 
-<table>
-<tbody>
-<tr align=center>
-  <td></td>
-  <td></td>
-  <td>Clang</td>
-  <td>GCC</td>
-  <td>TinyCC</td>
-  <td>VS 2017</td>
-  <td>VS 2019</td>
-  <td>Digital Mars</td>
-</tr>
-<tr align=center>
-  <td rowspan=3>amd64</td>
-  <td>Linux</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td>macOS</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td>Windows</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td rowspan=3>i686</td>
-  <td>Linux</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td>macOS</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td>Windows</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-  <td>&#x2714;</td>
-<tr>
-<tr align=center>
-  <td>arm64</td>
-  <td>Linux</td>
-  <td></td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td>armhf</td>
-  <td>Linux</td>
-  <td></td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-<tr align=center>
-  <td>mips</td>
-  <td>Linux</td>
-  <td></td>
-  <td>&#x2714;</td>
-  <td></td>
-  <td></td>
-  <td></td>
-  <td></td>
-</tr>
-</tbody>
-</table>
+For more details, check the corresponding [GitHub Actions build logs](https://github.com/ariya/hello-c90/actions).
+
+|              |                                                                                                |                                                                                                      |                                                                                                |
+|--------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
+| **amd64**    | **Linux**                                                                                      | **Windows**                                                                                          | **macOS**                                                                                      |
+|          GCC | ![amd64_linux_gcc](https://github.com/ariya/hello-c90/workflows/amd64_linux_gcc/badge.svg)     | ![amd64_windows_gcc](https://github.com/ariya/hello-c90/workflows/amd64_windows_gcc/badge.svg)       | ![amd64_macos_gcc](https://github.com/ariya/hello-c90/workflows/amd64_macos_gcc/badge.svg)     |
+|        Clang | ![amd64_linux_clang](https://github.com/ariya/hello-c90/workflows/amd64_linux_clang/badge.svg) | ![amd64_windows_clang](https://github.com/ariya/hello-c90/workflows/amd64_windows_clang/badge.svg)   | ![amd64_macos_clang](https://github.com/ariya/hello-c90/workflows/amd64_macos_clang/badge.svg) |
+|     Intel CC | ![amd64_linux_icc](https://github.com/ariya/hello-c90/workflows/amd64_linux_icc/badge.svg)     |                                                                                                      |                                                                                                |
+|       TinyCC | ![amd64_linux_tcc](https://github.com/ariya/hello-c90/workflows/amd64_linux_tcc/badge.svg)     | ![amd64_windows_tcc](https://github.com/ariya/hello-c90/workflows/amd64_windows_tcc/badge.svg)       |                                                                                                |
+|      VS 2017 |                                                                                                | ![amd64_windows_vs2017](https://github.com/ariya/hello-c90/workflows/amd64_windows_vs2017/badge.svg) |                                                                                                |
+|      VS 2019 |                                                                                                | ![amd64_windows_vs2019](https://github.com/ariya/hello-c90/workflows/amd64_windows_vs2019/badge.svg) |                                                                                                |
+| **i686**     | **Linux**                                                                                      | **Windows**                                                                                          | **macOS**                                                                                      |
+|          GCC | ![i686_linux_gcc](https://github.com/ariya/hello-c90/workflows/i686_linux_gcc/badge.svg)       | ![i686_windows_gcc](https://github.com/ariya/hello-c90/workflows/i686_windows_gcc/badge.svg)         |                                                                                                |
+|        Clang | ![i686_linux_clang](https://github.com/ariya/hello-c90/workflows/i686_linux_clang/badge.svg)   | ![i686_windows_clang](https://github.com/ariya/hello-c90/workflows/i686_windows_clang/badge.svg)     |                                                                                                |
+|       TinyCC | ![i686_linux_tcc](https://github.com/ariya/hello-c90/workflows/i686_linux_tcc/badge.svg)       | ![i686_windows_tcc](https://github.com/ariya/hello-c90/workflows/i686_windows_tcc/badge.svg)         |                                                                                                |
+|      VS 2017 |                                                                                                | ![i686_windows_vs2017](https://github.com/ariya/hello-c90/workflows/i686_windows_vs2017/badge.svg)   |                                                                                                |
+|      VS 2019 |                                                                                                | ![i686_windows_vs2019](https://github.com/ariya/hello-c90/workflows/i686_windows_vs2019/badge.svg)   |                                                                                                |
+| Digital Mars |                                                                                                | ![i686_windows_dm](https://github.com/ariya/hello-c90/workflows/i686_windows_dm/badge.svg)           |                                                                                                |
+| **arm64**    | **Linux**                                                                                      | **Windows**                                                                                          | **macOS**                                                                                      |
+|          GCC |  ![arm64_linux_gcc](https://github.com/ariya/hello-c90/workflows/arm64_linux_gcc/badge.svg)    |                                                                                                      |                                                                                                |
+| **armhf**    | **Linux**                                                                                      | **Windows**                                                                                          | **macOS**                                                                                      |
+|          GCC |  ![armhf_linux_gcc](https://github.com/ariya/hello-c90/workflows/armhf_linux_gcc/badge.svg)    |                                                                                                      |                                                                                                |
+| **mips**     | **Linux**                                                                                      | **Windows**                                                                                          | **macOS**                                                                                      |
+|          GCC |  ![mips_linux_gcc](https://github.com/ariya/hello-c90/workflows/mips_linux_gcc/badge.svg)      |                                                                                                      |                                                                                                |
+
+See also the previous variant by using [utilizing Azure Pipelines](https://ariya.io/2019/07/continuous-integration-of-vanilla-c-programs-for-intel-arm-and-mips-architecture) (check the [build log](https://github.com/ariya/hello-c90/runs/708027161)). [![Build Status](https://dev.azure.com/ariyahidayat/OpenSource/_apis/build/status/ariya.hello-c90?branchName=master)](https://dev.azure.com/ariyahidayat/OpenSource/_build/latest?definitionId=14&branchName=master)
