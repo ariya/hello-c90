@@ -517,13 +517,12 @@ jobs:
   - script: sudo apt install -y qemu-user
     displayName: 'Install requirements'
   - script: |
-      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-      docker run --rm dockcross/linux-mips > ./dockcross-linux-mips
-      chmod +x ./dockcross-linux-mips
-    displayName: 'Prepare Dockcross'
-  - script: ./dockcross/dockcross-linux-mips bash -c '$CC --version'
+      curl -O http://musl.cc/mips-linux-musl-cross.tgz
+      tar xzf mips-linux-musl-cross.tgz
+    displayName: 'Get the cross-compiler'
+  - script: ./mips-linux-musl-cross/bin/mips-linux-musl-gcc --version
     displayName: 'Verify tools version'
-  - script: ./dockcross/dockcross-linux-mips make LDFLAGS=-static
+  - script: CC=./mips-linux-musl-cross/bin/mips-linux-musl-gcc LDFLAGS=-static make
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
