@@ -528,3 +528,24 @@ jobs:
     displayName: 'Verify executable'
   - script: qemu-mips ./hello
     displayName: 'Run'
+
+- job: 'mips64_linux_gcc'
+  pool:
+    vmImage: 'ubuntu-18.04'
+  steps:
+  - script: sudo apt-get -y -qq update
+    displayName: 'apt-get update'
+  - script: sudo apt install -y qemu-user
+    displayName: 'Install requirements'
+  - script: |
+      curl -O http://musl.cc/mips64-linux-musl-cross.tgz
+      tar xzf mips64-linux-musl-cross.tgz
+    displayName: 'Get the cross-compiler'
+  - script: ./mips64-linux-musl-cross/bin/mips64-linux-musl-gcc --version
+    displayName: 'Verify tools version'
+  - script: CC=./mips64-linux-musl-cross/bin/mips64-linux-musl-gcc LDFLAGS=-static make
+    displayName: 'make'
+  - script: file ./hello
+    displayName: 'Verify executable'
+  - script: qemu-mips64 ./hello
+    displayName: 'Run'
