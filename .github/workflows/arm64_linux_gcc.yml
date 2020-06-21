@@ -6,18 +6,19 @@ jobs:
 
   arm64_linux_gcc:
     runs-on: ubuntu-18.04
+    env:
+      CC: ./aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc
+      LDFLAGS: -static
     steps:
     - uses: actions/checkout@v2
     - run: sudo apt-get -y -qq update
     - run: sudo apt install -y qemu-user
-    - name: Prepare Dockcross
+    - name: Prepare cross-compiler
       run: |
-        git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-        docker run --rm dockcross/linux-arm64 > ./dockcross-linux-arm64
-        chmod +x ./dockcross-linux-arm64
+        curl -O http://musl.cc/aarch64-linux-musl-cross.tgz
+        tar xzf aarch64-linux-musl-cross.tgz
     - name: Verify tools version
-      run: ./dockcross/dockcross-linux-arm64 bash -c '$CC --version'
-    - name: make
-      run: ./dockcross/dockcross-linux-arm64 make LDFLAGS=-static
+      run: ./aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc --version
+    - run: make
     - run: file ./hello
     - run: qemu-aarch64 ./hello
