@@ -284,16 +284,10 @@ jobs:
   steps:
   - script: sudo apt-get -y -qq update
     displayName: 'apt-get update'
-  - script: sudo apt install -y qemu-user
+  - script: sudo apt install -y make clang gcc-multilib qemu-user
     displayName: 'Install requirements'
-  - script: |
-      git clone --depth 1 https://github.com/dockcross/dockcross.git && cd dockcross
-      docker run --rm dockcross/linux-x86 > ./dockcross-linux-x86
-      chmod +x ./dockcross-linux-x86
-    displayName: 'Prepare Dockcross'
-  - script: ./dockcross/dockcross-linux-x86 bash -c "sudo apt install -y clang && clang -v"
-    displayName: 'Check tools versions'
-  - script: ./dockcross/dockcross-linux-x86 bash -c "sudo apt install -y clang && make CC=clang CFLAGS='-m32' LDFLAGS='-m32 -static'"
+  - script: clang --version
+  - script: make CC=clang CFLAGS=-m32 LDFLAGS='-m32 -static'
     displayName: 'make'
   - script: file ./hello
     displayName: 'Verify executable'
