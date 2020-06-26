@@ -15,7 +15,7 @@ jobs:
     - run: sudo apt install -y qemu-user
     - name: Prepare cross-compiler
       run: |
-        curl -O http://musl.cc/aarch64-linux-musl-cross.tgz
+        curl -O https://musl.cc/aarch64-linux-musl-cross.tgz
         tar xzf aarch64-linux-musl-cross.tgz
     - name: Verify tools version
       run: ./aarch64-linux-musl-cross/bin/aarch64-linux-musl-gcc --version

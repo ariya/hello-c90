@@ -15,7 +15,7 @@ jobs:
     - run: sudo apt install -y qemu-user
     - name: Prepare cross-compiler
       run: |
-        curl -O http://musl.cc/mips-linux-musl-cross.tgz
+        curl -O https://musl.cc/mips-linux-musl-cross.tgz
         tar xzf mips-linux-musl-cross.tgz
     - name: Verify tools version
       run: ./mips-linux-musl-cross/bin/mips-linux-musl-gcc --version

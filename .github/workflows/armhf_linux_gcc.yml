@@ -15,7 +15,7 @@ jobs:
     - run: sudo apt install -y qemu-user
     - name: Prepare cross-compiler
       run: |
-        curl -O http://musl.cc/armel-linux-musleabihf-cross.tgz
+        curl -O https://musl.cc/armel-linux-musleabihf-cross.tgz
         tar xzf armel-linux-musleabihf-cross.tgz
     - name: Verify tools version
       run: ./armel-linux-musleabihf-cross/bin/armel-linux-musleabihf-gcc --version

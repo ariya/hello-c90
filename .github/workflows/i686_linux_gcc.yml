@@ -15,7 +15,7 @@ jobs:
     - run: sudo apt install -y qemu-user
     - name: Prepare cross-compiler
       run: |
-        curl -O http://musl.cc/i686-linux-musl-cross.tgz
+        curl -O https://musl.cc/i686-linux-musl-cross.tgz
         tar xzf i686-linux-musl-cross.tgz
     - name: Verify tools version
       run: ./i686-linux-musl-cross/bin/i686-linux-musl-gcc --version
