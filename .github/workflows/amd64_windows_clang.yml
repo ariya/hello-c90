@@ -6,17 +6,15 @@ jobs:
 
   amd64_windows_clang:
     runs-on: windows-2019
-    env:
-      CC: clang
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::add-path::C:\\msys64\\usr\\bin"
-    - run: pacman --version
-    - run: pacman -Sy
-    - run: pacman --noconfirm -S pacman-mirrors
-    - run: pacman --noconfirm -S mingw64/mingw-w64-x86_64-clang
-    - run: echo "::add-path::C:\\msys64\\mingw64\\bin"
+    - uses: msys2/setup-msys2@v2
+      with:
+        install: make mingw-w64-x86_64-clang
     - run: clang --version
-    - run: make
+    - run: make CC=clang
     - run: file ./hello.exe
     - run: ./hello
