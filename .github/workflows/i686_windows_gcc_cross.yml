@@ -1,0 +1,36 @@
+name: i686_windows_gcc_cross
+
+on: [push, pull_request]
+
+jobs:
+
+  i686_windows_gcc_cross-build:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Download MinGW cross-compiler
+      run: |
+        curl -O https://musl.cc/i686-w64-mingw32-cross.tgz
+        tar xzf i686-w64-mingw32-cross.tgz
+    - run: make CC=./i686-w64-mingw32-cross/bin/i686-w64-mingw32-gcc LDFLAGS=-static
+    - run: file ./hello.exe
+    - name: Save executable as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: i686_windows_gcc_cross
+        path: |
+          hello.exe
+
+  i686_windows_gcc_cross-test:
+    runs-on: windows-2019
+    needs: i686_windows_gcc_cross-build
+    timeout-minutes: 2
+    steps:
+    - name: Download previously-built executable
+      uses: actions/download-artifact@v3
+      with:
+        name: i686_windows_gcc_cross
+    - run: file ./hello.exe
+    - run: ./hello
