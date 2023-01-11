@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
 
   armhf_linux_gcc:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     timeout-minutes: 5
     env:
       CC: ./armel-linux-musleabihf-cross/bin/armel-linux-musleabihf-gcc
