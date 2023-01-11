@@ -6,6 +6,7 @@ jobs:
 
   armhf_linux_gcc:
     runs-on: ubuntu-18.04
+    timeout-minutes: 5
     env:
       CC: ./armel-linux-musleabihf-cross/bin/armel-linux-musleabihf-gcc
       LDFLAGS: -static
