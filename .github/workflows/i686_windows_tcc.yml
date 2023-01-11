@@ -8,14 +8,16 @@ jobs:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::add-path::C:\\msys64\\usr\\bin"
+
     - name: Install tcc
       run: |
         echo "D73CF66CEC8C761DE38C7A3D16C9EB0D  tcc.zip" > checksum.md5
         dos2unix checksum.md5
         curl -L -o tcc.zip https://archive.org/download/tinyccompiler/tcc-0.9.27-win64-bin.zip
         md5sum -c checksum.md5 && unzip -q tcc.zip
+
     - run: tcc\i386-win32-tcc.exe -v
-    - run: make CC="tcc\i386-win32-tcc.exe" && ren hello hello.exe
+    - run: make CC="tcc\i386-win32-tcc.exe"
+    - run: ren hello hello.exe
     - run: file hello.exe
     - run: ./hello.exe

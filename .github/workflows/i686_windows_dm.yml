@@ -8,13 +8,14 @@ jobs:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::add-path::C:\\msys64\\usr\\bin"
+
     - name: Install Digital Mars compiler
       run: |
         echo "456f86768308e078328d108117d3d065 dm857c.zip" > checksum.md5
         dos2unix checksum.md5
         curl -o dm857c.zip http://ftp.digitalmars.com/Digital_Mars_C++/Patch/dm857c.zip
         md5sum -c checksum.md5 && unzip -q dm857c.zip
-    - run: mingw32-make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
+
+    - run: make CC="dm\bin\dmc" CFLAGS="-w- -v2 -A "
     - run: file hello.exe
     - run: ./hello.exe

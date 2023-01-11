@@ -10,14 +10,13 @@ jobs:
       CC: clang
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::add-path::C:\\msys64\\usr\\bin"
-    - run: pacman --version
-    - run: pacman -Sy
-    - run: pacman --noconfirm -S pacman-mirrors
-    - run: pacman --noconfirm -S mingw32/mingw-w64-i686-clang
-    - run: echo "::add-path::C:\\msys64\\mingw32\\bin"
-    - run: clang --version
-    - run: which clang
-    - run: make
+
+    - run: C:\msys64\usr\bin\pacman --version
+    - run: C:\msys64\usr\bin\pacman -Sy
+    - run: C:\msys64\usr\bin\pacman --noconfirm -S pacman-mirrors
+    - run: C:\msys64\usr\bin\pacman --noconfirm -S mingw32/mingw-w64-i686-clang
+
+    - run: C:\msys64\mingw32\bin\clang --version
+    - run: make CC=C:\msys64\mingw32\bin\clang
     - run: file ./hello.exe
     - run: ./hello

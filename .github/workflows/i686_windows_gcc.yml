@@ -6,17 +6,15 @@ jobs:
 
   i686_windows_gcc:
     runs-on: windows-2019
-    env:
-      CC: i686-w64-mingw32-gcc
     steps:
     - uses: actions/checkout@v2
-    - run: echo "::add-path::C:\\msys64\\usr\\bin"
-    - run: pacman --version
-    - run: pacman -Sy
-    - run: pacman --noconfirm -S pacman-mirrors
-    - run: pacman --noconfirm -S mingw-w64-cross-gcc
-    - run: echo "::add-path::C:\\msys64\\opt\\bin"
-    - run: i686-w64-mingw32-gcc -v
-    - run: make
+
+    - run: C:\msys64\usr\bin\pacman --version
+    - run: C:\msys64\usr\bin\pacman -Sy
+    - run: C:\msys64\usr\bin\pacman --noconfirm -S pacman-mirrors
+    - run: C:\msys64\usr\bin\pacman --noconfirm -S mingw-w64-cross-gcc
+
+    - run: C:\msys64\opt\bin\i686-w64-mingw32-gcc -v
+    - run: make CC=C:\msys64\opt\bin\i686-w64-mingw32-gcc
     - run: file ./hello.exe
     - run: ./hello
