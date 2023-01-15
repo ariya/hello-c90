@@ -1,0 +1,25 @@
+name: riscv_linux_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  riscv_linux_gcc:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    env:
+      CC: ./riscv32-linux-musl-cross/bin/riscv32-linux-musl-gcc
+      LDFLAGS: -static
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt-get -y -qq update
+    - run: sudo apt install -y qemu-user
+    - name: Prepare cross-compiler
+      run: |
+        curl -O https://musl.cc/riscv32-linux-musl-cross.tgz
+        tar xzf riscv32-linux-musl-cross.tgz
+    - name: Verify tools version
+      run: ./riscv32-linux-musl-cross/bin/riscv32-linux-musl-gcc --version
+    - run: make
+    - run: file ./hello
+    - run: qemu-riscv32 ./hello
