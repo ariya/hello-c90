@@ -8,6 +8,8 @@ This demonstrates the use of [Github Actions](https://help.github.com/en/actions
 
 For more details, check the corresponding [GitHub Actions build logs](https://github.com/ariya/hello-c90/actions).
 
+Note that CPU architectures in the triplets (e.g. `amd64`) follow the [Debian naming scheme](https://www.debian.org/ports/).
+
 |              |                                                                                                |                                                                                                                        |                                                                                                |
 |--------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|
 | **amd64**    | **Linux**                                                                                      | **Windows**                                                                                                            | **macOS**                                                                                      |
