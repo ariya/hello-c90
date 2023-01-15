@@ -1,0 +1,32 @@
+name: i686_dos_gcc_cross
+
+on: [push, pull_request]
+
+jobs:
+
+  i686_dos_gcc_cross:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    env:
+      CC: ./djgpp/bin/i586-pc-msdosdjgpp-gcc
+      LDFLAGS: -static
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Prepare DJGPP cross-compiler
+      run: |
+        curl -OL https://github.com/andrewwutw/build-djgpp/releases/download/v3.3/djgpp-linux64-gcc1210.tar.bz2
+        tar xf djgpp-linux64-gcc1210.tar.bz2
+    - name: Verify compiler version
+      run: ./djgpp/bin/i586-pc-msdosdjgpp-gcc --version
+    - run: make
+    - run: mv hello hello.exe
+    - run: file ./hello.exe
+
+    - name: Install DOSEMU2
+      run: |
+        sudo add-apt-repository -y ppa:dosemu2/ppa
+        sudo apt update -y
+        sudo apt install -y dosemu2
+    - run: dosemu --version
+    - run: dosemu -K . -E hello.exe -t
