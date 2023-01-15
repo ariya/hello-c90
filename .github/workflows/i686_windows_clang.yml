@@ -10,7 +10,7 @@ jobs:
     env:
       CC: clang
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - run: C:\msys64\usr\bin\pacman --version
     - run: C:\msys64\usr\bin\pacman -Sy

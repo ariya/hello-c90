@@ -8,7 +8,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 5
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: brew install gcc@9
     - run: gcc-9 --version
     - run: CC=gcc-9 make
