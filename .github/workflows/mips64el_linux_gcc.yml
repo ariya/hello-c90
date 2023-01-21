@@ -1,0 +1,25 @@
+name: mips64el_linux_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  mips64el_linux_gcc:
+    runs-on: ubuntu-20.04
+    timeout-minutes: 5
+    env:
+      CC: ./mips64el-linux-musl-cross/bin/mips64el-linux-musl-gcc
+      LDFLAGS: -static
+    steps:
+    - uses: actions/checkout@v3
+    - run: sudo apt-get -y -qq update
+    - run: sudo apt install -y qemu-user
+    - name: Prepare cross-compiler
+      run: |
+        curl -O https://musl.cc/mips64el-linux-musl-cross.tgz
+        tar xzf mips64el-linux-musl-cross.tgz
+    - name: Verify tools version
+      run: ./mips64el-linux-musl-cross/bin/mips64el-linux-musl-gcc --version
+    - run: make
+    - run: file ./hello
+    - run: qemu-mips64el ./hello
