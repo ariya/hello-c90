@@ -1,0 +1,22 @@
+name: i686_windows_gcc
+
+on: [push, pull_request]
+
+jobs:
+
+  i686_windows_gcc:
+    runs-on: windows-2019
+    timeout-minutes: 5
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: msys2/setup-msys2@v2
+      with:
+        msystem: mingw32
+        pacboy: gcc:p make:p
+    - run: i686-w64-mingw32-cc -v
+    - run: mingw32-make CC=i686-w64-mingw32-cc CFLAGS=-m32 LDFLAGS='-m32 -static'
+    - run: file ./hello.exe
+    - run: ./hello
