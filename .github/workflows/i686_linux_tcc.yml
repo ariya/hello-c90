@@ -10,7 +10,7 @@ on:
 jobs:
 
   i686_linux_tcc:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
     - uses: actions/checkout@v4
