@@ -1,6 +1,11 @@
 name: i686_linux_tcc
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
 
 jobs:
 
