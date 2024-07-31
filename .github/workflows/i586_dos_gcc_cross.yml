@@ -16,7 +16,7 @@ jobs:
       CC: ./djgpp/bin/i586-pc-msdosdjgpp-gcc
       LDFLAGS: -static
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Prepare DJGPP cross-compiler
       run: |

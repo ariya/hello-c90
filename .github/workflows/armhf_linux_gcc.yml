@@ -16,7 +16,7 @@ jobs:
       CC: ./armel-linux-musleabihf-cross/bin/armel-linux-musleabihf-gcc
       LDFLAGS: -static
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - run: sudo apt-get -y -qq update
     - run: sudo apt install -y qemu-user
     - name: Prepare cross-compiler
